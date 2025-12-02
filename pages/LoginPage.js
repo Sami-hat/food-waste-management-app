@@ -1,7 +1,7 @@
 import { loginStyles } from '../styles/LoginPageStyles';
 
 import React, { useState } from 'react';
-import { SafeAreaView, Alert, TextInput, Text } from 'react-native';
+import { View, Alert, TextInput, Text, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -59,7 +59,7 @@ const LoginPage = () => {
   };
 
   return (
-    <SafeAreaView style={loginStyles.container}>
+    <View style={loginStyles.container}>
       <Text style={loginStyles.title}>
         Log In
       </Text>
@@ -99,27 +99,26 @@ const LoginPage = () => {
         errorMessage={error && error.includes('password') ? error : ''}
       />
 
-      <TouchableOpacity
-        title="Log In"
+      <Pressable
         onPress={handleLogin}
-        buttonStyle={loginStyles.loginButton}
-        titleStyle={loginStyles.buttonTitle}
-        loading={loading}
         disabled={loading}
-      />
+      >
+        <Text style={loginStyles.backText}>
+          {loading ? 'Logging in...' : 'Log In'}
+        </Text>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={{ paddingTop: 10 }}
-        title="Back to Home"
-        type="clear"
-        titleStyle={loginStyles.backText}
         onPress={() => navigation.goBack()}
-      />
+      >
+        <Text style={loginStyles.backText}>Back to Home</Text>
+      </Pressable>
 
       {error && !error.includes('email') && !error.includes('password') ? (
         <Text style={loginStyles.errorText}>{error}</Text>
       ) : null}
-    </SafeAreaView>
+    </View>
   );
 };
 

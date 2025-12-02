@@ -8,10 +8,9 @@ import { CameraView, useCameraPermissions } from "expo-camera";
 import { useState } from "react";
 import {
   Alert,
-  SafeAreaView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  Pressable,
   View,
 } from "react-native";
 
@@ -113,7 +112,7 @@ const ScannerPage = ({ }) => {
         <Text style={scannerStyles.message}>
           We need camera permission to scan barcodes
         </Text>
-        <TouchableOpacity onPress={requestPermission} title="Grant Permission" />
+        <Pressable onPress={requestPermission} title="Grant Permission" />
       </View>
     );
   }
@@ -139,15 +138,15 @@ const ScannerPage = ({ }) => {
         }}
       />
 
-      <SafeAreaView style={cameraStyles.cameraOverlay}>
+      <View style={cameraStyles.cameraOverlay}>
         {/* Top Bar */}
         <View style={cameraStyles.topBar}>
-          <TouchableOpacity
+          <Pressable
             style={cameraStyles.topButton}
             onPress={() => navigation.goBack()}
           >
             <Ionicons name="arrow-back" size={28} color="white" />
-          </TouchableOpacity>
+          </Pressable>
 
           <View style={cameraStyles.cameraGuide}>
             <Text style={cameraStyles.guideText}>Center barcode in frame</Text>
@@ -176,7 +175,7 @@ const ScannerPage = ({ }) => {
             ]}
           />
         </View>
-      </SafeAreaView>
+      </View>
 
       {/* Processing overlay */}
       {processing && (
@@ -190,7 +189,7 @@ const ScannerPage = ({ }) => {
       {/* Scan again button */}
       {scanned && !processing && (
         <View style={scannerStyles.scannedContainer}>
-          <TouchableOpacity
+          <Pressable
             title="Tap to Scan Again"
             onPress={() => setScanned(false)}
             color="#52B788"

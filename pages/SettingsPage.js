@@ -1,7 +1,7 @@
 import { settingsStyles } from '../styles/SettingsPageStyles';
 
 import React from 'react';
-import { View, SafeAreaView, Alert, TouchableOpacity, Text } from 'react-native';
+import { View, Alert, Pressable, Text } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 
 const SettingsPage = ({ setIndex }) => {
@@ -45,7 +45,7 @@ const SettingsPage = ({ setIndex }) => {
   };
 
   return (
-    <SafeAreaView style={settingsStyles.safeAreaView}>
+    <View style={settingsStyles.safeAreaView}>
       <View style={settingsStyles.container}>
         <Text style={settingsStyles.title}>Settings</Text>
         
@@ -58,21 +58,21 @@ const SettingsPage = ({ setIndex }) => {
           </View>
         )}
 
-        <TouchableOpacity
+        <Pressable
           title="Logout"
           onPress={handleLogout}
           buttonStyle={settingsStyles.logoutButton}
           titleStyle={settingsStyles.buttonText}
         />
         
-        <TouchableOpacity
+        <Pressable
           title="Logout from All Devices"
           onPress={handleLogoutAllDevices}
           buttonStyle={settingsStyles.logoutAllButton}
           titleStyle={settingsStyles.buttonText}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

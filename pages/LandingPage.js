@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, SafeAreaView, TouchableOpacity, Text, Alert } from 'react-native';
+import { View, Pressable, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts/AuthContext';
 import { landingStyles } from '../styles/LandingPageStyles';
@@ -29,7 +29,7 @@ const LandingPage = () => {
   };
 
   return (
-    <SafeAreaView style={landingStyles.container}>
+    <View style={landingStyles.container}>
       <View style={landingStyles.banner}>
         <Text style={landingStyles.welcomeText}>
           Welcome to Shelfie!
@@ -39,19 +39,19 @@ const LandingPage = () => {
         </Text>
       </View>
 
-      <TouchableOpacity
+      <Pressable
         style={landingStyles.signUpButton}
         onPress={() => navigation.navigate('SignUp')}
       >
         <Text style={landingStyles.buttonText}>Sign Up with Email</Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={landingStyles.loginButton}
         onPress={() => navigation.navigate('Login')}
       >
         <Text style={landingStyles.buttonText}>Log In with Email</Text>
-      </TouchableOpacity>
+      </Pressable>
 
       <View style={landingStyles.divider}>
         <View style={landingStyles.dividerLine} />
@@ -59,7 +59,7 @@ const LandingPage = () => {
         <View style={landingStyles.dividerLine} />
       </View>
 
-      <TouchableOpacity
+      <Pressable
         style={landingStyles.googleButton}
         onPress={handleGoogleSignIn}
         disabled={isGoogleLoading}
@@ -67,14 +67,14 @@ const LandingPage = () => {
         <Text style={landingStyles.buttonText}>
           {isGoogleLoading ? 'Signing in...' : 'Continue with Google'}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
       <View style={landingStyles.statisticsBox}>
         <Text style={landingStyles.statisticsTitle}>
           Your Statistics
         </Text>
         <Text style={landingStyles.statisticsText}>
-          Sign in to access your grocery list, make amendments, and find out to
+          Sign in to access your grocery list, make amendments, and find out how to
           effectively use the food products you own!
         </Text>
       </View>
@@ -87,7 +87,7 @@ const LandingPage = () => {
           All rights reserved.
         </Text>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

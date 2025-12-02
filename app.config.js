@@ -24,12 +24,7 @@ export default {
       "**/*"
     ],
     extra: {
-      GOOGLE_WEB_CLIENT_ID: process.env.GOOGLE_WEB_CLIENT_ID,
-      GOOGLE_ANDROID_CLIENT_ID: process.env.GOOGLE_ANDROID_CLIENT_ID,
-      GOOGLE_IOS_CLIENT_ID: process.env.GOOGLE_IOS_CLIENT_ID,
-      GOOGLE_EXPO_CLIENT_ID: process.env.GOOGLE_EXPO_CLIENT_ID,
-      GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-      REDIRECT_URI: process.env.REDIRECT_URI,
+      EXPO_PUBLIC_GOOGLE_CLIENT_ID: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
       eas: {
         "projectId": "9a3feb72-9264-4226-8d4e-c724712dee32"
       },

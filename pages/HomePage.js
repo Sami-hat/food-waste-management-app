@@ -10,11 +10,10 @@ import { useNavigation } from "@react-navigation/native";
 import { useCache } from '../hooks/useCache';
 import { useCancellableRequest } from '../hooks/useCancellableRequest';
 import {
-  SafeAreaView,
   View,
   FlatList,
   Dimensions,
-  TouchableOpacity,
+  Pressable,
   ActivityIndicator,
   Text,
 } from "react-native";
@@ -24,7 +23,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 // Memoised component for suggested recipe items
 const SuggestedRecipeItem = memo(({ item, onPress }) => (
-  <TouchableOpacity
+  <Pressable
     onPress={onPress}
     style={{
       paddingVertical: 12,
@@ -41,12 +40,12 @@ const SuggestedRecipeItem = memo(({ item, onPress }) => (
     }}>
       {item.recipe_name}
     </Text>
-  </TouchableOpacity>
+  </Pressable>
 ));
 
 // Memoised component for saved recipe items
 const SavedRecipeItem = memo(({ item, onPress }) => (
-  <TouchableOpacity
+  <Pressable
     onPress={onPress}
     style={{
       flexDirection: 'row',
@@ -74,7 +73,7 @@ const SavedRecipeItem = memo(({ item, onPress }) => (
         {item.recipe_name}
       </Text>
     </View>
-  </TouchableOpacity>
+  </Pressable>
 ));
 
 // Home Page, User is signed in
@@ -332,9 +331,9 @@ const HomePage = ({ setRecipe }) => {
   // Show loading state while checking auth
   if (loading) {
     return (
-      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Loading...</Text>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -345,11 +344,11 @@ const HomePage = ({ setRecipe }) => {
 
   // Show validated profile information
   return (
-    <SafeAreaView style={homeStyles.container}>
+    <View style={homeStyles.container}>
       <View>
         <View style={homeStyles.buttonContainer}>
           {/* Scan Barcode */}
-          <TouchableOpacity
+          <Pressable
             onPress={() => navigation.navigate("Scanner")}
             style={[
               homeStyles.button,
@@ -369,10 +368,10 @@ const HomePage = ({ setRecipe }) => {
               Scan Barcode
             </Text>
             <Feather name="grid" size={24} color="white" />
-          </TouchableOpacity>
+          </Pressable>
 
           {/* Take Image */}
-          <TouchableOpacity
+          <Pressable
             onPress={() => navigation.navigate("Camera")}
             style={[
               homeStyles.button,
@@ -391,7 +390,7 @@ const HomePage = ({ setRecipe }) => {
               Take Image
             </Text>
             <Feather name="camera" size={24} color="white" />
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         {/* Preferences Display */}
@@ -403,12 +402,12 @@ const HomePage = ({ setRecipe }) => {
             <Text style={homeStyles.preferencesText}>
               {preferencesDisplayText}
             </Text>
-            <TouchableOpacity
+            <Pressable
               style={{ position: "absolute", top: 10, right: 10 }}
               onPress={handlePreferencesPress}
             >
               <AntDesign name="edit" size={24} color="#52B788" />
-            </TouchableOpacity>
+            </Pressable>
           </View>
         )}
 
@@ -431,7 +430,7 @@ const HomePage = ({ setRecipe }) => {
                 renderItem={renderSuggestedRecipe}
               />
               <View style={homeStyles.recipeActionButtonContainer}>
-                <TouchableOpacity
+                <Pressable
                   onPress={handleAddMore}
                   style={[
                     homeStyles.recipeActionButton,
@@ -460,9 +459,9 @@ const HomePage = ({ setRecipe }) => {
                   ]}>
                     Add 3 More
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
 
-                <TouchableOpacity
+                <Pressable
                   onPress={handleRefreshRecipes}
                   style={[
                     homeStyles.recipeActionButton,
@@ -490,7 +489,7 @@ const HomePage = ({ setRecipe }) => {
                   ]}>
                     Refresh All
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
               </View>
             </>
           ) : ingredients.length === 0 ? (
@@ -505,7 +504,7 @@ const HomePage = ({ setRecipe }) => {
                   <Text style={{ marginBottom: 10 }}>
                     No recipes found. Try again?
                   </Text>
-                  <TouchableOpacity
+                  <Pressable
                     onPress={() => generateRecipes("generate")}
                     style={[
                       homeStyles.generateRecipeButton,
@@ -524,10 +523,10 @@ const HomePage = ({ setRecipe }) => {
                     ]}>
                       Retry
                     </Text>
-                  </TouchableOpacity>
+                  </Pressable>
                 </>
               ) : (
-                <TouchableOpacity
+                <Pressable
                   onPress={() => generateRecipes("generate")}
                   style={[
                     homeStyles.generateRecipeButton,
@@ -545,7 +544,7 @@ const HomePage = ({ setRecipe }) => {
                   ]}>
                     Generate Recipes
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
               )}
             </View>
           )}
@@ -575,7 +574,7 @@ const HomePage = ({ setRecipe }) => {
           />
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

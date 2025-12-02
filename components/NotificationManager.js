@@ -6,7 +6,7 @@ import {
   Text,
   notificationStylesheet,
   Alert,
-  TouchableOpacity,
+  Pressable,
   Linking,
   Platform,
 } from "react-native";
@@ -158,13 +158,12 @@ const NotificationManager = ({ userId, navigation }) => {
   const urgency = getMostUrgent();
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={[
         notificationStyles.banner,
         urgency.urgent && notificationStyles.urgentBanner,
       ]}
       onPress={handleBannerPress}
-      activeOpacity={0.9}
     >
       <View style={notificationStyles.bannerContent}>
         <Text style={notificationStyles.bannerIcon}>⚠️</Text>
@@ -182,14 +181,14 @@ const NotificationManager = ({ userId, navigation }) => {
             {expiringItems.length > 2 && "..."}
           </Text>
         </View>
-        <TouchableOpacity
+        <Pressable
           onPress={dismissBanner}
           style={notificationStyles.dismissButton}
         >
           <Text style={notificationStyles.dismissText}>✕</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

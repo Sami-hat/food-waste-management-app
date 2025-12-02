@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Alert, TouchableOpacity, TextInput, Text } from 'react-native';
+import { View, Alert, Pressable, TextInput, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts/AuthContext';
 import { signUpStyles } from '../styles/SignUpPageStyles';
@@ -78,7 +78,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <SafeAreaView style={signUpStyles.container}>
+    <View style={signUpStyles.container}>
       <Text style={signUpStyles.title}>
         Sign Up
       </Text>
@@ -139,27 +139,26 @@ const SignUpPage = () => {
         Password must contain at least 8 characters, including uppercase, lowercase, number, and special character
       </Text>
 
-      <TouchableOpacity
-        title="Sign Up"
+      <Pressable
         onPress={handleSignup}
-        buttonStyle={signUpStyles.signupButton}
-        titleStyle={signUpStyles.buttonTitle}
-        loading={loading}
         disabled={loading}
-      />
+      >
+        <Text style={signUpStyles.backText}>
+          {loading ? 'Creating account...' : 'Sign Up'}
+        </Text>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={{ paddingTop: 10 }}
-        title="Back to Home"
-        type="clear"
-        titleStyle={signUpStyles.backText}
         onPress={() => navigation.goBack()}
-      />
+      >
+        <Text style={signUpStyles.backText}>Back to Home</Text>
+      </Pressable>
 
       {error && !error.includes('email') && !error.includes('Password') && !error.includes('match') ? (
         <Text style={signUpStyles.errorText}>{error}</Text>
       ) : null}
-    </SafeAreaView>
+    </View>
   );
 };
 

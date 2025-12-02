@@ -2,7 +2,7 @@ import { preferencesStyles } from "../styles/PreferencesPageStyles";
 import { preferencesService } from "../services/apiService";
 
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, Alert, ScrollView, View, TouchableOpacity, Text, Switch, TextInput } from "react-native";
+import { View, Alert, ScrollView, Pressable, Text, Switch, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { useAuth } from '../contexts/AuthContext';
@@ -94,7 +94,7 @@ const PreferencesPage = ({ }) => {
   };
 
   return (
-    <SafeAreaView style={preferencesStyles.container}>
+    <View style={preferencesStyles.container}>
       <ScrollView
         contentContainerStyle={preferencesStyles.scrollContainer}
         showsVerticalScrollIndicator={false}
@@ -209,7 +209,7 @@ const PreferencesPage = ({ }) => {
           </View>
         )}
 
-        <TouchableOpacity
+        <Pressable
           title="Save Preferences"
           onPress={savePreferences}
           loading={loading}
@@ -218,7 +218,7 @@ const PreferencesPage = ({ }) => {
           titleStyle={preferencesStyles.buttonTitle}
         />
 
-        <TouchableOpacity
+        <Pressable
           title="Cancel"
           type="clear"
           titleStyle={preferencesStyles.cancelText}
@@ -226,7 +226,7 @@ const PreferencesPage = ({ }) => {
           disabled={loading}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

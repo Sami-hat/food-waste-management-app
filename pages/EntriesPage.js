@@ -9,7 +9,7 @@ import {
   View,
   Alert,
   Platform,
-  TouchableOpacity,
+  Pressable,
   TextInput, 
   Text, 
   Card
@@ -61,7 +61,7 @@ const InventoryCard = memo(({ item, onDelete, onEdit, formatDate, getExpiryColor
         paddingHorizontal: 2,
       }}
     >
-      <TouchableOpacity
+      <Pressable
         title="Delete"
         buttonStyle={[
           entriesStyles.subButton,
@@ -69,7 +69,7 @@ const InventoryCard = memo(({ item, onDelete, onEdit, formatDate, getExpiryColor
         ]}
         onPress={() => onDelete(item.id, item.is_expired)}
       />
-      <TouchableOpacity
+      <Pressable
         title="Edit"
         buttonStyle={[
           entriesStyles.subButton,
@@ -353,7 +353,7 @@ const EntriesPage = ({ }) => {
           <Text style={entriesStyles.inputLabel}>
             Expiry Date:
           </Text>
-          <TouchableOpacity
+          <Pressable
             onPress={() => setShowDatePicker(true)}
             style={entriesStyles.datePickerButton}
           >
@@ -362,7 +362,7 @@ const EntriesPage = ({ }) => {
                 ? formatDate(expiryDate)
                 : "Select expiry date (optional)"}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
 
           {showDatePicker && (
             <DateTimePicker
@@ -374,13 +374,13 @@ const EntriesPage = ({ }) => {
             />
           )}
 
-          <TouchableOpacity
+          <Pressable
             title={isAdding ? "Add Item" : "Update Item"}
             onPress={isAdding ? addEntry : editEntry}
             buttonStyle={entriesStyles.button}
             loading={processing}
           />
-          <TouchableOpacity
+          <Pressable
             title="Cancel"
             onPress={() => {
               setIsPosting(false);
@@ -419,7 +419,7 @@ const EntriesPage = ({ }) => {
               />
             </>
           )}
-          <TouchableOpacity
+          <Pressable
             title="Add Groceries Manually"
             onPress={() => {
               setIsPosting(true);

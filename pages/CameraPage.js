@@ -3,10 +3,9 @@ import { cameraStyles } from "../styles/CameraPageStyles";
 import React, { useState, useRef } from "react";
 import {
   View,
-  TouchableOpacity,
+  Pressable,
   Alert,
   ActivityIndicator,
-  SafeAreaView,
   Text
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -109,7 +108,7 @@ const CameraPage = ({ }) => {
 
   if (hasPermission === false) {
     return (
-      <SafeAreaView style={cameraStyles.permissionContainer}>
+      <View style={cameraStyles.permissionContainer}>
         <View style={cameraStyles.permissionContent}>
           <Ionicons name="camera-outline" size={80} color="#52B788" />
           <Text style={cameraStyles.permissionTitle}>
@@ -118,7 +117,7 @@ const CameraPage = ({ }) => {
           <Text style={cameraStyles.permissionText}>
             We need access to your camera to take photos of your groceries
           </Text>
-          <TouchableOpacity
+          <Pressable
             style={cameraStyles.permissionButton}
             onPress={async () => {
               const { status } = await Camera.requestCameraPermissionsAsync();
@@ -128,15 +127,15 @@ const CameraPage = ({ }) => {
             <Text style={cameraStyles.permissionButtonText}>
               Grant Permission
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </Pressable>
+          <Pressable
             style={cameraStyles.backButton}
             onPress={() => navigation.goBack()}
           >
             <Text style={cameraStyles.backButtonText}>Go Back</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -170,14 +169,14 @@ const CameraPage = ({ }) => {
 
   const renderPhotoPreview = () => {
     return (
-      <SafeAreaView style={cameraStyles.previewContainer}>
+      <View style={cameraStyles.previewContainer}>
         <View style={cameraStyles.previewHeader}>
-          <TouchableOpacity
+          <Pressable
             style={cameraStyles.headerButton}
             onPress={() => setPhotoData(null)}
           >
             <Ionicons name="arrow-back" size={28} color="white" />
-          </TouchableOpacity>
+          </Pressable>
           <Text style={cameraStyles.headerTitle}>Review Photo</Text>
           <View style={cameraStyles.headerButton} />
         </View>
@@ -189,7 +188,7 @@ const CameraPage = ({ }) => {
         />
 
         <View style={cameraStyles.previewActions}>
-          <TouchableOpacity
+          <Pressable
             style={[cameraStyles.actionButton, cameraStyles.retakeButton]}
             onPress={() => setPhotoData(null)}
             disabled={isProcessing}
@@ -200,9 +199,9 @@ const CameraPage = ({ }) => {
               color="white"
             />
             <Text style={cameraStyles.actionButtonText}>Retake</Text>
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity
+          <Pressable
             style={[cameraStyles.actionButton, cameraStyles.processButton]}
             onPress={() => processImage(photoData)}
             disabled={isProcessing}
@@ -215,9 +214,9 @@ const CameraPage = ({ }) => {
                 <Text style={cameraStyles.actionButtonText}>Process</Text>
               </>
             )}
-          </TouchableOpacity>
+          </Pressable>
         </View>
-      </SafeAreaView>
+      </View>
     );
   };
 
@@ -230,15 +229,15 @@ const CameraPage = ({ }) => {
           ref={cameraRef}
           ratio="16:9"
         >
-          <SafeAreaView style={cameraStyles.cameraOverlay}>
+          <View style={cameraStyles.cameraOverlay}>
             {/* Top Bar */}
             <View style={cameraStyles.topBar}>
-              <TouchableOpacity
+              <Pressable
                 style={cameraStyles.topButton}
                 onPress={() => navigation.goBack()}
               >
                 <Ionicons name="arrow-back" size={28} color="white" />
-              </TouchableOpacity>
+              </Pressable>
 
               <View style={cameraStyles.cameraGuide}>
                 <Text style={cameraStyles.guideText}>
@@ -246,7 +245,7 @@ const CameraPage = ({ }) => {
                 </Text>
               </View>
 
-              <TouchableOpacity
+              <Pressable
                 style={cameraStyles.topButton}
                 onPress={toggleCameraType}
               >
@@ -255,7 +254,7 @@ const CameraPage = ({ }) => {
                   size={28}
                   color="white"
                 />
-              </TouchableOpacity>
+              </Pressable>
             </View>
 
             {/* Focus Guide */}
@@ -286,7 +285,7 @@ const CameraPage = ({ }) => {
               <View style={cameraStyles.controlsRow}>
                 <View style={{ width: 60 }} />
 
-                <TouchableOpacity
+                <Pressable
                   style={cameraStyles.shutterButton}
                   onPress={takePicture}
                   activeOpacity={0.7}
@@ -294,12 +293,12 @@ const CameraPage = ({ }) => {
                   <View style={cameraStyles.shutterOuter}>
                     <View style={cameraStyles.shutterInner} />
                   </View>
-                </TouchableOpacity>
+                </Pressable>
 
                 <View style={{ width: 60 }} />
               </View>
             </View>
-          </SafeAreaView>
+          </View>
         </Camera>
       </View>
     );

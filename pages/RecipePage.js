@@ -3,13 +3,12 @@ import { recipeService } from "../services/apiService";
 
 import React, { useState, useEffect } from "react";
 import {
-  SafeAreaView,
   ScrollView,
   Modal,
   View,
   Alert,
   ActivityIndicator,
-  TouchableOpacity, 
+  Pressable, 
   Text, 
   TextInput, 
   Icon
@@ -189,7 +188,7 @@ const RecipePage = ({ recipe }) => {
   // };
 
   return (
-    <SafeAreaView style={recipeStyles.container}>
+    <View style={recipeStyles.container}>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
         <View style={recipeStyles.recipeContainer}>
@@ -235,13 +234,13 @@ const RecipePage = ({ recipe }) => {
           padding: 10,
         }}
       >
-        <TouchableOpacity
+        <Pressable
           icon={<Icon name="arrow-back" type="material" color="black" />}
           onPress={() => navigation.navigate("Home")}
           buttonStyle={recipeStyles.iconButton}
         />
 
-        <TouchableOpacity
+        <Pressable
           icon={
             isLoading ? (
               <ActivityIndicator size="small" color="black" />
@@ -258,7 +257,7 @@ const RecipePage = ({ recipe }) => {
           disabled={isLoading}
         />
 
-        {/* <TouchableOpacity
+        {/* <Pressable
           icon={<Icon name="share" type="material" color="black" />}
           onPress={async () => {
             await shareText(
@@ -289,13 +288,13 @@ const RecipePage = ({ recipe }) => {
               containerStyle={recipeStyles.inputContainer}
               inputStyle={recipeStyles.input}
             />
-            <TouchableOpacity
+            <Pressable
               title="Submit"
               onPress={handlePopupSubmit}
               buttonStyle={recipeStyles.submitButton}
               titleStyle={recipeStyles.modalButtonText}
             />
-            <TouchableOpacity
+            <Pressable
               title="Cancel"
               onPress={handleCancel}
               buttonStyle={recipeStyles.submitButton}
@@ -304,7 +303,7 @@ const RecipePage = ({ recipe }) => {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 };
 
