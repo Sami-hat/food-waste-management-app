@@ -72,10 +72,17 @@ export const signUpStyles = StyleSheet.create({
     paddingHorizontal: 20,
     lineHeight: 16,
   },
+  backButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+  },
   backText: {
     color: "#5295B7",
     fontSize: 16,
-    marginTop: 20,
+    fontWeight: "600",
   },
   errorText: {
     color: "#d32f2f",

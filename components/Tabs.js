@@ -82,6 +82,11 @@ export const Tabs = () => {
   }, [isAuthenticated, loading]);
 
   const renderScene = ({ route }) => {
+    // Only allow profile/landing page when not authenticated
+    if (!isAuthenticated && route.key !== "profile") {
+      return null;
+    }
+
     switch (route.key) {
       case "profile":
         return (
@@ -122,12 +127,19 @@ export const Tabs = () => {
     )
   };
 
+  const handleIndexChange = (newIndex) => {
+    // Only allow index changes if authenticated, or if navigating to profile (landing)
+    if (isAuthenticated || newIndex === 0) {
+      setIndex(newIndex);
+    }
+  };
+
   return (
     <NavigationContainer>
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
-        onIndexChange={setIndex}
+        onIndexChange={handleIndexChange}
         initialLayout={{ width: dimensions.width }}
         renderTabBar={renderTabBar}
         tabBarPosition="bottom"

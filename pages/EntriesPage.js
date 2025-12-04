@@ -10,9 +10,9 @@ import {
   Alert,
   Platform,
   Pressable,
-  TextInput, 
-  Text, 
-  Card
+  TextInput,
+  Text,
+  ScrollView
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -20,8 +20,8 @@ import { useAuth } from '../contexts/AuthContext';
 
 // Memoised inventory card component
 const InventoryCard = memo(({ item, onDelete, onEdit, formatDate, getExpiryColor }) => (
-  <Card
-    containerStyle={[
+  <View
+    style={[
       entriesStyles.entry,
       item.is_expired && {
         borderColor: "#FF6B6B",
@@ -62,23 +62,25 @@ const InventoryCard = memo(({ item, onDelete, onEdit, formatDate, getExpiryColor
       }}
     >
       <Pressable
-        title="Delete"
-        buttonStyle={[
+        style={[
           entriesStyles.subButton,
           entriesStyles.deleteButton,
         ]}
         onPress={() => onDelete(item.id, item.is_expired)}
-      />
+      >
+        <Text style={entriesStyles.subButtonText}>Delete</Text>
+      </Pressable>
       <Pressable
-        title="Edit"
-        buttonStyle={[
+        style={[
           entriesStyles.subButton,
           entriesStyles.editButton,
         ]}
         onPress={() => onEdit(item)}
-      />
+      >
+        <Text style={entriesStyles.subButtonText}>Edit</Text>
+      </Pressable>
     </View>
-  </Card>
+  </View>
 ));
 
 const EntriesPage = ({ }) => {
@@ -318,79 +320,96 @@ const EntriesPage = ({ }) => {
 
       {/* Main Content Section */}
       {isPosting ? (
-        <View style={entriesStyles.content}>
-          <Text style={entriesStyles.inputLabel}>
-            Name of Item:
+        <ScrollView
+          style={{ flex: 1, width: "100%" }}
+          contentContainerStyle={entriesStyles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <Text style={entriesStyles.title}>
+            {isEditing ? "Edit Item" : "Add New Item"}
           </Text>
-          <TextInput
-            placeholder={isEditing ? "Edit item name" : "Enter item name"}
-            value={name}
-            onChangeText={setName}
-            inputContainerStyle={entriesStyles.inputContainer}
-          />
-          <Text style={entriesStyles.inputLabel}>
-            Quantity:
-          </Text>
-          <TextInput
-            placeholder={isEditing ? "Edit quantity" : "Enter quantity"}
-            keyboardType="numeric"
-            value={quantity}
-            onChangeText={setQuantity}
-            inputContainerStyle={entriesStyles.inputContainer}
-          />
-          <Text style={entriesStyles.inputLabel}>
-            Barcode Number:
-          </Text>
-          <TextInput
-            placeholder={
-              isEditing ? "Edit barcode" : "Enter barcode (optional)"
-            }
-            keyboardType="numeric"
-            value={barcode}
-            onChangeText={setBarcode}
-            inputContainerStyle={entriesStyles.inputContainer}
-          />
-          <Text style={entriesStyles.inputLabel}>
-            Expiry Date:
-          </Text>
+
+          <View style={entriesStyles.formContainer}>
+            <Text style={entriesStyles.inputLabel}>
+              Name of Item
+            </Text>
+            <TextInput
+              placeholder={isEditing ? "Edit item name" : "Enter item name"}
+              value={name}
+              onChangeText={setName}
+              style={entriesStyles.inputContainer}
+            />
+
+            <Text style={entriesStyles.inputLabel}>
+              Quantity
+            </Text>
+            <TextInput
+              placeholder={isEditing ? "Edit quantity" : "Enter quantity"}
+              keyboardType="numeric"
+              value={quantity}
+              onChangeText={setQuantity}
+              style={entriesStyles.inputContainer}
+            />
+
+            <Text style={entriesStyles.inputLabel}>
+              Barcode Number (Optional)
+            </Text>
+            <TextInput
+              placeholder={
+                isEditing ? "Edit barcode" : "Enter barcode"
+              }
+              keyboardType="numeric"
+              value={barcode}
+              onChangeText={setBarcode}
+              style={entriesStyles.inputContainer}
+            />
+
+            <Text style={entriesStyles.inputLabel}>
+              Expiry Date (Optional)
+            </Text>
+            <Pressable
+              onPress={() => setShowDatePicker(true)}
+              style={entriesStyles.datePickerButton}
+            >
+              <Text style={entriesStyles.datePickerText}>
+                {expiryDate
+                  ? formatDate(expiryDate)
+                  : "Tap to select expiry date"}
+              </Text>
+            </Pressable>
+
+            {showDatePicker && (
+              <DateTimePicker
+                value={expiryDate || new Date()}
+                mode="date"
+                display={Platform.OS === "ios" ? "spinner" : "default"}
+                onChange={onDateChange}
+                minimumDate={new Date()}
+              />
+            )}
+          </View>
+
           <Pressable
-            onPress={() => setShowDatePicker(true)}
-            style={entriesStyles.datePickerButton}
+            onPress={isAdding ? addEntry : editEntry}
+            style={entriesStyles.button}
+            disabled={processing}
           >
-            <Text style={entriesStyles.datePickerText}>
-              {expiryDate
-                ? formatDate(expiryDate)
-                : "Select expiry date (optional)"}
+            <Text style={entriesStyles.buttonText}>
+              {processing ? "Processing..." : (isAdding ? "Add Item" : "Update Item")}
             </Text>
           </Pressable>
-
-          {showDatePicker && (
-            <DateTimePicker
-              value={expiryDate || new Date()}
-              mode="date"
-              display={Platform.OS === "ios" ? "spinner" : "default"}
-              onChange={onDateChange}
-              minimumDate={new Date()}
-            />
-          )}
-
           <Pressable
-            title={isAdding ? "Add Item" : "Update Item"}
-            onPress={isAdding ? addEntry : editEntry}
-            buttonStyle={entriesStyles.button}
-            loading={processing}
-          />
-          <Pressable
-            title="Cancel"
             onPress={() => {
               setIsPosting(false);
               setIsAdding(false);
               setIsEditing(false);
               clearEntry();
             }}
-            buttonStyle={[entriesStyles.button, { backgroundColor: "#666" }]}
-          />
-        </View>
+            style={[entriesStyles.button, entriesStyles.cancelButton]}
+          >
+            <Text style={entriesStyles.buttonText}>Cancel</Text>
+          </Pressable>
+        </ScrollView>
       ) : (
         <View style={entriesStyles.content}>
           {processing ? (
@@ -420,14 +439,15 @@ const EntriesPage = ({ }) => {
             </>
           )}
           <Pressable
-            title="Add Groceries Manually"
             onPress={() => {
               setIsPosting(true);
               setIsAdding(true);
               clearEntry();
             }}
-            buttonStyle={entriesStyles.button}
-          />
+            style={entriesStyles.button}
+          >
+            <Text style={entriesStyles.buttonText}>Add Groceries Manually</Text>
+          </Pressable>
         </View>
       )}
     </View>

@@ -115,7 +115,11 @@ const HomePage = ({ setRecipe }) => {
   // Reload on navigation focus
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      if (userId >= 1 && userId === lastUserId && lastUserId !== null) {
+      if (userId >= 1) {
+        // Invalidate saved recipes cache to force fresh data
+        const cacheKey = `saved_recipes_${userId}`;
+        setCached(cacheKey, null);
+
         loadInventory();
         loadPreferences();
         loadSavedRecipes();
@@ -123,7 +127,7 @@ const HomePage = ({ setRecipe }) => {
     });
 
     return unsubscribe;
-  }, [navigation, userId, lastUserId, loadInventory, loadPreferences, loadSavedRecipes]);
+  }, [navigation, userId, loadInventory, loadPreferences, loadSavedRecipes, setCached]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -350,19 +354,7 @@ const HomePage = ({ setRecipe }) => {
           {/* Scan Barcode */}
           <Pressable
             onPress={() => navigation.navigate("Scanner")}
-            style={[
-              homeStyles.button,
-              { 
-                backgroundColor: "#B8528A",
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingVertical: 12,
-                paddingHorizontal: 20,
-                borderRadius: 8,
-                marginBottom: 10,
-              }
-            ]}
+            style={[homeStyles.button, { backgroundColor: "#B8528A" }]}
           >
             <Text style={[homeStyles.buttonText, { marginRight: 10 }]}>
               Scan Barcode
@@ -373,18 +365,7 @@ const HomePage = ({ setRecipe }) => {
           {/* Take Image */}
           <Pressable
             onPress={() => navigation.navigate("Camera")}
-            style={[
-              homeStyles.button,
-              { 
-                backgroundColor: "#D8A052",
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingVertical: 12,
-                paddingHorizontal: 20,
-                borderRadius: 8,
-              }
-            ]}
+            style={[homeStyles.button, { backgroundColor: "#D8A052" }]}
           >
             <Text style={[homeStyles.buttonText, { marginRight: 10 }]}>
               Take Image
@@ -434,16 +415,7 @@ const HomePage = ({ setRecipe }) => {
                   onPress={handleAddMore}
                   style={[
                     homeStyles.recipeActionButton,
-                    {
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingVertical: 8,
-                      paddingHorizontal: 12,
-                      borderWidth: 1,
-                      borderColor: '#52B788',
-                      borderRadius: 6,
-                      marginRight: 8,
-                    }
+                    { borderWidth: 1, borderColor: '#52B788' }
                   ]}
                   disabled={isLoadingRecipes}
                 >
@@ -453,10 +425,7 @@ const HomePage = ({ setRecipe }) => {
                     color="#52B788"
                     style={{ marginRight: 5 }}
                   />
-                  <Text style={[
-                    homeStyles.recipeActionButtonText,
-                    { color: '#52B788' }
-                  ]}>
+                  <Text style={[homeStyles.recipeActionButtonText, { color: '#52B788' }]}>
                     Add 3 More
                   </Text>
                 </Pressable>
@@ -465,15 +434,7 @@ const HomePage = ({ setRecipe }) => {
                   onPress={handleRefreshRecipes}
                   style={[
                     homeStyles.recipeActionButton,
-                    {
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingVertical: 8,
-                      paddingHorizontal: 12,
-                      borderWidth: 1,
-                      borderColor: '#4A90E2',
-                      borderRadius: 6,
-                    }
+                    { borderWidth: 1, borderColor: '#4A90E2' }
                   ]}
                   disabled={isLoadingRecipes}
                 >
@@ -483,10 +444,7 @@ const HomePage = ({ setRecipe }) => {
                     color="#4A90E2"
                     style={{ marginRight: 5 }}
                   />
-                  <Text style={[
-                    homeStyles.recipeActionButtonText,
-                    { color: '#4A90E2' }
-                  ]}>
+                  <Text style={[homeStyles.recipeActionButtonText, { color: '#4A90E2' }]}>
                     Refresh All
                   </Text>
                 </Pressable>
@@ -501,26 +459,14 @@ const HomePage = ({ setRecipe }) => {
             <View style={homeStyles.emptyText}>
               {hasGeneratedRecipes ? (
                 <>
-                  <Text style={{ marginBottom: 10 }}>
+                  <Text style={{ marginBottom: 10, color: '#666' }}>
                     No recipes found. Try again?
                   </Text>
                   <Pressable
                     onPress={() => generateRecipes("generate")}
-                    style={[
-                      homeStyles.generateRecipeButton,
-                      {
-                        paddingVertical: 10,
-                        paddingHorizontal: 20,
-                        borderWidth: 1,
-                        borderColor: '#52B788',
-                        borderRadius: 6,
-                      }
-                    ]}
+                    style={homeStyles.generateRecipeButton}
                   >
-                    <Text style={[
-                      homeStyles.generateRecipeButtonText,
-                      { color: '#52B788' }
-                    ]}>
+                    <Text style={homeStyles.generateRecipeButtonText}>
                       Retry
                     </Text>
                   </Pressable>
@@ -528,20 +474,9 @@ const HomePage = ({ setRecipe }) => {
               ) : (
                 <Pressable
                   onPress={() => generateRecipes("generate")}
-                  style={[
-                    homeStyles.generateRecipeButton,
-                    {
-                      backgroundColor: '#52B788',
-                      paddingVertical: 10,
-                      paddingHorizontal: 20,
-                      borderRadius: 6,
-                    }
-                  ]}
+                  style={homeStyles.generateRecipeButton}
                 >
-                  <Text style={[
-                    homeStyles.generateRecipeButtonText,
-                    { color: '#fff', fontWeight: 'bold' }
-                  ]}>
+                  <Text style={homeStyles.generateRecipeButtonText}>
                     Generate Recipes
                   </Text>
                 </Pressable>
@@ -561,7 +496,8 @@ const HomePage = ({ setRecipe }) => {
             renderItem={renderSavedRecipe}
             ListEmptyComponent={() => (
               <View style={homeStyles.emptyText}>
-                <Text>No saved recipes yet. Star recipes to save them!</Text>
+                <Text>No saved recipes yet.</Text>
+                <Text>Star recipes to save them!</Text>
               </View>
             )}
             ListHeaderComponent={

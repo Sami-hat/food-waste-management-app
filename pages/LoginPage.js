@@ -30,15 +30,15 @@ const LoginPage = () => {
 
       const response = await signInWithEmail(email.trim(), password);
 
-      if (!response.emailVerified) {
-        Alert.alert(
-          'Email Not Verified',
-          'Please check your email to verify your account.',
-          [
-            { text: 'OK' }
-          ]
-        );
-      }
+      // if (!response.emailVerified) {
+      //   Alert.alert(
+      //     'Email Not Verified',
+      //     'Please check your email to verify your account.',
+      //     [
+      //       { text: 'OK' }
+      //     ]
+      //   );
+      // }
 
       navigation.navigate('Home');
     } catch (error) {
@@ -102,6 +102,7 @@ const LoginPage = () => {
       <Pressable
         onPress={handleLogin}
         disabled={loading}
+        style={loginStyles.backButton}
       >
         <Text style={loginStyles.backText}>
           {loading ? 'Logging in...' : 'Log In'}
@@ -109,7 +110,7 @@ const LoginPage = () => {
       </Pressable>
 
       <Pressable
-        style={{ paddingTop: 10 }}
+        style={loginStyles.backButton}
         onPress={() => navigation.goBack()}
       >
         <Text style={loginStyles.backText}>Back to Home</Text>

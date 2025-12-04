@@ -22,7 +22,7 @@ export const loginStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     paddingHorizontal: 15,
-    height: 50,
+    height: 60,
     alignItems: "center",
     elevation: 1,
     shadowColor: "#000",
@@ -69,10 +69,17 @@ export const loginStyles = StyleSheet.create({
     marginTop: 10,
     textDecorationLine: "underline",
   },
+  backButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+  },
   backText: {
     color: "#5295B7",
     fontSize: 16,
-    marginTop: 20,
+    fontWeight: "600",
   },
   errorText: {
     color: "#d32f2f",

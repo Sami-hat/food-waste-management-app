@@ -103,89 +103,85 @@ const PreferencesPage = ({ }) => {
           Dietary Preferences
         </Text>
 
-        <Switch
-          title="Vegan"
-          checked={preferences.is_vegan}
-          onPress={() => updatePreference("is_vegan", !preferences.is_vegan)}
-          containerStyle={preferencesStyles.checkboxContainer}
-          textStyle={preferencesStyles.checkboxText}
-          checkedColor="#52B788"
-        />
+        <View style={preferencesStyles.checkboxContainer}>
+          <Text style={preferencesStyles.checkboxText}>Vegan</Text>
+          <Switch
+            value={preferences.is_vegan}
+            onValueChange={(value) => updatePreference("is_vegan", value)}
+            trackColor={{ false: "#767577", true: "#52B788" }}
+            thumbColor={preferences.is_vegan ? "#fff" : "#f4f3f4"}
+          />
+        </View>
 
-        <Switch
-          title="Vegetarian"
-          checked={preferences.is_vegetarian}
-          onPress={() =>
-            updatePreference("is_vegetarian", !preferences.is_vegetarian)
-          }
-          containerStyle={preferencesStyles.checkboxContainer}
-          textStyle={preferencesStyles.checkboxText}
-          checkedColor="#52B788"
-        />
+        <View style={preferencesStyles.checkboxContainer}>
+          <Text style={preferencesStyles.checkboxText}>Vegetarian</Text>
+          <Switch
+            value={preferences.is_vegetarian}
+            onValueChange={(value) => updatePreference("is_vegetarian", value)}
+            trackColor={{ false: "#767577", true: "#52B788" }}
+            thumbColor={preferences.is_vegetarian ? "#fff" : "#f4f3f4"}
+          />
+        </View>
 
-        <Switch
-          title="Gluten Free"
-          checked={preferences.is_gluten_free}
-          onPress={() =>
-            updatePreference("is_gluten_free", !preferences.is_gluten_free)
-          }
-          containerStyle={preferencesStyles.checkboxContainer}
-          textStyle={preferencesStyles.checkboxText}
-          checkedColor="#52B788"
-        />
+        <View style={preferencesStyles.checkboxContainer}>
+          <Text style={preferencesStyles.checkboxText}>Gluten Free</Text>
+          <Switch
+            value={preferences.is_gluten_free}
+            onValueChange={(value) => updatePreference("is_gluten_free", value)}
+            trackColor={{ false: "#767577", true: "#52B788" }}
+            thumbColor={preferences.is_gluten_free ? "#fff" : "#f4f3f4"}
+          />
+        </View>
 
-        <Switch
-          title="Dairy Free"
-          checked={preferences.is_dairy_free}
-          onPress={() =>
-            updatePreference("is_dairy_free", !preferences.is_dairy_free)
-          }
-          containerStyle={preferencesStyles.checkboxContainer}
-          textStyle={preferencesStyles.checkboxText}
-          checkedColor="#52B788"
-        />
+        <View style={preferencesStyles.checkboxContainer}>
+          <Text style={preferencesStyles.checkboxText}>Dairy Free</Text>
+          <Switch
+            value={preferences.is_dairy_free}
+            onValueChange={(value) => updatePreference("is_dairy_free", value)}
+            trackColor={{ false: "#767577", true: "#52B788" }}
+            thumbColor={preferences.is_dairy_free ? "#fff" : "#f4f3f4"}
+          />
+        </View>
 
-        <Switch
-          title="Nut Free"
-          checked={preferences.is_nut_free}
-          onPress={() =>
-            updatePreference("is_nut_free", !preferences.is_nut_free)
-          }
-          containerStyle={preferencesStyles.checkboxContainer}
-          textStyle={preferencesStyles.checkboxText}
-          checkedColor="#52B788"
-        />
+        <View style={preferencesStyles.checkboxContainer}>
+          <Text style={preferencesStyles.checkboxText}>Nut Free</Text>
+          <Switch
+            value={preferences.is_nut_free}
+            onValueChange={(value) => updatePreference("is_nut_free", value)}
+            trackColor={{ false: "#767577", true: "#52B788" }}
+            thumbColor={preferences.is_nut_free ? "#fff" : "#f4f3f4"}
+          />
+        </View>
 
-        <Switch
-          title="High Protein"
-          checked={preferences.is_high_protein}
-          onPress={() =>
-            updatePreference("is_high_protein", !preferences.is_high_protein)
-          }
-          containerStyle={preferencesStyles.checkboxContainer}
-          textStyle={preferencesStyles.checkboxText}
-          checkedColor="#52B788"
-        />
+        <View style={preferencesStyles.checkboxContainer}>
+          <Text style={preferencesStyles.checkboxText}>High Protein</Text>
+          <Switch
+            value={preferences.is_high_protein}
+            onValueChange={(value) => updatePreference("is_high_protein", value)}
+            trackColor={{ false: "#767577", true: "#52B788" }}
+            thumbColor={preferences.is_high_protein ? "#fff" : "#f4f3f4"}
+          />
+        </View>
 
-        <Switch
-          title="Low Carb"
-          checked={preferences.is_low_carb}
-          onPress={() =>
-            updatePreference("is_low_carb", !preferences.is_low_carb)
-          }
-          containerStyle={preferencesStyles.checkboxContainer}
-          textStyle={preferencesStyles.checkboxText}
-          checkedColor="#52B788"
-        />
+        <View style={preferencesStyles.checkboxContainer}>
+          <Text style={preferencesStyles.checkboxText}>Low Carb</Text>
+          <Switch
+            value={preferences.is_low_carb}
+            onValueChange={(value) => updatePreference("is_low_carb", value)}
+            trackColor={{ false: "#767577", true: "#52B788" }}
+            thumbColor={preferences.is_low_carb ? "#fff" : "#f4f3f4"}
+          />
+        </View>
 
-        <Switch
-          title="Custom Dietary Restrictions"
-          checked={preferences.is_custom}
-          onPress={toggleCustom}
-          containerStyle={preferencesStyles.checkboxContainer}
-          textStyle={preferencesStyles.checkboxText}
-          checkedColor="#52B788"
-        />
+        <View style={preferencesStyles.checkboxContainer}>
+          <Text style={preferencesStyles.checkboxText}>Custom Dietary Restrictions</Text>
+          <Switch
+            value={preferences.is_custom}
+            onValueChange={toggleCustom}
+            trackColor={{ false: "#767577", true: "#52B788" }}
+            thumbColor={preferences.is_custom ? "#fff" : "#f4f3f4"}
+          />
+        </View>
 
         {preferences.is_custom && (
           <View style={preferencesStyles.customInputContainer}>
@@ -196,11 +192,7 @@ const PreferencesPage = ({ }) => {
               onChangeText={(text) => updatePreference("custom_text", text)}
               multiline
               numberOfLines={3}
-              inputContainerStyle={preferencesStyles.customInputInner}
-              inputStyle={preferencesStyles.customInputText}
-              containerStyle={preferencesStyles.customInputWrapper}
-              label="Custom Preferences"
-              labelStyle={preferencesStyles.customInputLabel}
+              style={preferencesStyles.customInputText}
               maxLength={500}
             />
             <Text style={preferencesStyles.characterCount}>
@@ -208,24 +200,27 @@ const PreferencesPage = ({ }) => {
             </Text>
           </View>
         )}
+      </ScrollView>
 
+      <View style={preferencesStyles.buttonContainer}>
         <Pressable
-          title="Save Preferences"
           onPress={savePreferences}
-          loading={loading}
           disabled={loading}
-          buttonStyle={preferencesStyles.saveButton}
-          titleStyle={preferencesStyles.buttonTitle}
-        />
+          style={preferencesStyles.saveButton}
+        >
+          <Text style={preferencesStyles.buttonTitle}>
+            {loading ? 'Saving...' : 'Save Preferences'}
+          </Text>
+        </Pressable>
 
         <Pressable
-          title="Cancel"
-          type="clear"
-          titleStyle={preferencesStyles.cancelText}
           onPress={() => navigation.goBack()}
           disabled={loading}
-        />
-      </ScrollView>
+          style={preferencesStyles.cancelButton}
+        >
+          <Text style={preferencesStyles.cancelText}>Cancel</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };

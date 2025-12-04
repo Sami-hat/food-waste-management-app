@@ -48,8 +48,20 @@ const apiRequest = async (url, options = {}) => {
     }
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || `HTTP ${response.status}`);
+      let errorMessage = `HTTP ${response.status}`;
+      try {
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } else {
+          const errorText = await response.text();
+          errorMessage = errorText || errorMessage;
+        }
+      } catch (parseError) {
+        console.error('Error parsing error response:', parseError);
+      }
+      throw new Error(errorMessage);
     }
 
     return await response.json();
@@ -109,11 +121,11 @@ export const authService = {
     });
   },
 
-  resendVerification: async (email) => {
+  resendVerification: async (userId) => {
     return apiRequest(`${API_BASE_URL}${API_ENDPOINTS.RESEND_VERIFICATION}`, {
       method: 'POST',
-      body: JSON.stringify({ email }),
-      skipAuth: true
+      body: JSON.stringify({ userId }),
+      skipAuth: false
     });
   },
 

@@ -8,14 +8,14 @@ import {
   View,
   Alert,
   ActivityIndicator,
-  Pressable, 
-  Text, 
-  TextInput, 
-  Icon
+  Pressable,
+  Text,
+  TextInput
 } from "react-native";
+import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
-// import * as Sharing from "expo-sharing";
-// import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
+import * as FileSystem from "expo-file-system";
 
 import { useAuth } from '../contexts/AuthContext';
 
@@ -175,17 +175,17 @@ const RecipePage = ({ recipe }) => {
     setModalVisible(false);
   };
 
-  // const shareText = async (title, text) => {
-  //   const fileUri = FileSystem.documentDirectory + `${title}` + ".txt";
-  //   await FileSystem.writeAsStringAsync(fileUri, text);
+  const shareText = async (title, text) => {
+    const fileUri = FileSystem.documentDirectory + `${title}` + ".txt";
+    await FileSystem.writeAsStringAsync(fileUri, text);
 
-  //   // Share with appropriate MIME type and UTI
-  //   await Sharing.shareAsync(fileUri, {
-  //     mimeType: "text/plain", // For Android
-  //     UTI: "public.text", // For iOS
-  //     dialogTitle: "Share Text",
-  //   });
-  // };
+    // Share with appropriate MIME type and UTI
+    await Sharing.shareAsync(fileUri, {
+      mimeType: "text/plain", // For Android
+      UTI: "public.text", // For iOS
+      dialogTitle: "Share Text",
+    });
+  };
 
   return (
     <View style={recipeStyles.container}>
@@ -235,30 +235,29 @@ const RecipePage = ({ recipe }) => {
         }}
       >
         <Pressable
-          icon={<Icon name="arrow-back" type="material" color="black" />}
           onPress={() => navigation.navigate("Home")}
-          buttonStyle={recipeStyles.iconButton}
-        />
+          style={recipeStyles.iconButton}
+        >
+          <MaterialIcons name="arrow-back" size={24} color="black" />
+        </Pressable>
 
         <Pressable
-          icon={
-            isLoading ? (
-              <ActivityIndicator size="small" color="black" />
-            ) : (
-              <Icon
-                name={saved ? "star" : "star-outline"}
-                type="material"
-                color={saved ? "#FFD700" : "black"}
-              />
-            )
-          }
           onPress={handleSaveToggle}
-          buttonStyle={recipeStyles.iconButton}
+          style={recipeStyles.iconButton}
           disabled={isLoading}
-        />
+        >
+          {isLoading ? (
+            <ActivityIndicator size="small" color="black" />
+          ) : (
+            <MaterialIcons
+              name={saved ? "star" : "star-outline"}
+              size={24}
+              color={saved ? "#FFD700" : "black"}
+            />
+          )}
+        </Pressable>
 
-        {/* <Pressable
-          icon={<Icon name="share" type="material" color="black" />}
+        <Pressable
           onPress={async () => {
             await shareText(
               `${recipe.recipe_name}`,
@@ -269,8 +268,10 @@ const RecipePage = ({ recipe }) => {
               )}\n\nServings\n\n${formatServings(getString(recipe.servings))}`,
             );
           }}
-          buttonStyle={recipeStyles.iconButton}
-        /> */}
+          style={recipeStyles.iconButton}
+        >
+          <MaterialIcons name="share" size={24} color="black" />
+        </Pressable>
       </View>
 
       <Modal
@@ -285,21 +286,20 @@ const RecipePage = ({ recipe }) => {
               placeholder="Enter recipient email here..."
               value={recipient}
               onChangeText={setRecipient}
-              containerStyle={recipeStyles.inputContainer}
-              inputStyle={recipeStyles.input}
+              style={recipeStyles.input}
             />
             <Pressable
-              title="Submit"
               onPress={handlePopupSubmit}
-              buttonStyle={recipeStyles.submitButton}
-              titleStyle={recipeStyles.modalButtonText}
-            />
+              style={recipeStyles.submitButton}
+            >
+              <Text style={recipeStyles.modalButtonText}>Submit</Text>
+            </Pressable>
             <Pressable
-              title="Cancel"
               onPress={handleCancel}
-              buttonStyle={recipeStyles.submitButton}
-              titleStyle={recipeStyles.modalButtonText}
-            />
+              style={recipeStyles.submitButton}
+            >
+              <Text style={recipeStyles.modalButtonText}>Cancel</Text>
+            </Pressable>
           </View>
         </View>
       </Modal>

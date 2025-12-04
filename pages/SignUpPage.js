@@ -24,7 +24,9 @@ const SignUpPage = () => {
   };
 
   const handleSignup = async () => {
+    console.log("signing up with:", email);
     if (!email.trim()) {
+      console.log("Email validation failed: empty");
       setError('Please enter your email');
       return;
     }
@@ -88,52 +90,34 @@ const SignUpPage = () => {
         keyboardType="email-address"
         autoCapitalize="none"
         value={email}
-        leftIcon={{
-          type: 'font-awesome',
-          name: 'envelope',
-          color: '#52B788',
-          size: 20,
-        }}
-        leftIconContainerStyle={signUpStyles.leftIconContainer}
-        inputContainerStyle={signUpStyles.inputContainer}
-        inputStyle={signUpStyles.inputText}
+        style={signUpStyles.inputText}
         onChangeText={setEmail}
-        errorMessage={error && error.includes('email') ? error : ''}
       />
+      {error && error.includes('email') && (
+        <Text style={signUpStyles.errorText}>{error}</Text>
+      )}
 
       <TextInput
         placeholder="Password"
         secureTextEntry
         value={password}
-        leftIcon={{
-          type: 'font-awesome',
-          name: 'lock',
-          color: '#52B788',
-          size: 22,
-        }}
-        leftIconContainerStyle={signUpStyles.leftIconContainer}
-        inputContainerStyle={signUpStyles.inputContainer}
-        inputStyle={signUpStyles.inputText}
+        style={signUpStyles.inputText}
         onChangeText={setPassword}
-        errorMessage={error && error.includes('Password') ? error : ''}
       />
+      {error && error.includes('Password') && (
+        <Text style={signUpStyles.errorText}>{error}</Text>
+      )}
 
       <TextInput
         placeholder="Confirm Password"
         secureTextEntry
         value={confirmPassword}
-        leftIcon={{
-          type: 'font-awesome',
-          name: 'lock',
-          color: '#52B788',
-          size: 22,
-        }}
-        leftIconContainerStyle={signUpStyles.leftIconContainer}
-        inputContainerStyle={signUpStyles.inputContainer}
-        inputStyle={signUpStyles.inputText}
+        style={signUpStyles.inputText}
         onChangeText={setConfirmPassword}
-        errorMessage={error && error.includes('match') ? error : ''}
       />
+      {error && error.includes('match') && (
+        <Text style={signUpStyles.errorText}>{error}</Text>
+      )}
 
       <Text style={signUpStyles.passwordHint}>
         Password must contain at least 8 characters, including uppercase, lowercase, number, and special character
@@ -142,6 +126,7 @@ const SignUpPage = () => {
       <Pressable
         onPress={handleSignup}
         disabled={loading}
+        style={signUpStyles.backButton}
       >
         <Text style={signUpStyles.backText}>
           {loading ? 'Creating account...' : 'Sign Up'}
@@ -149,7 +134,7 @@ const SignUpPage = () => {
       </Pressable>
 
       <Pressable
-        style={{ paddingTop: 10 }}
+        style={signUpStyles.backButton}
         onPress={() => navigation.goBack()}
       >
         <Text style={signUpStyles.backText}>Back to Home</Text>

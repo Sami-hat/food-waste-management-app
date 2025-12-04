@@ -6,42 +6,49 @@ export const preferencesStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F5F5",
-    paddingHorizontal: 20,
+  },
+  scrollContainer: {
+    paddingHorizontal: 0,
     paddingTop: 60,
+    paddingBottom: 40,
   },
   title: {
+    fontSize: 24,
+    fontWeight: "bold",
     textAlign: "center",
     marginBottom: 30,
+    color: "#333",
   },
   checkboxContainer: {
-    backgroundColor: "transparent",
-    borderWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#e0e0e0",
+    borderRadius: 8,
     marginHorizontal: 20,
-    paddingVertical: 8,
+    marginVertical: 6,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
   },
 
   checkboxText: {
     fontSize: 16,
-    fontWeight: "normal",
+    fontWeight: "500",
     color: "#333",
+    flex: 1,
   },
 
   customInputContainer: {
     marginHorizontal: 20,
     marginTop: 10,
     marginBottom: 20,
-  },
-
-  customInputWrapper: {
-    paddingHorizontal: 0,
-  },
-
-  customInputInner: {
+    backgroundColor: "#fff",
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "#e0e0e0",
     borderRadius: 8,
-    paddingHorizontal: 10,
-    backgroundColor: "#f8f8f8",
+    padding: 12,
   },
 
   customInputText: {
@@ -50,13 +57,11 @@ export const preferencesStyles = StyleSheet.create({
     minHeight: 80,
     textAlignVertical: "top",
     paddingTop: 10,
-    // paddingBottom: 5,
-  },
-
-  customInputLabel: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 6,
+    backgroundColor: "#f8f8f8",
   },
 
   characterCount: {
@@ -64,21 +69,44 @@ export const preferencesStyles = StyleSheet.create({
     color: "#999",
     textAlign: "right",
     marginTop: 5,
-    marginRight: 5,
   },
+
+  buttonContainer: {
+    backgroundColor: "#fff",
+    borderTopWidth: 1,
+    borderTopColor: "#e0e0e0",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+
   saveButton: {
     backgroundColor: "#52B788",
     borderRadius: 25,
-    marginTop: 30,
-    marginBottom: 2,
+    marginTop: 10,
+    marginBottom: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 50,
+    alignItems: "center",
+    justifyContent: "center",
   },
+
   buttonTitle: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "white",
   },
+
+  cancelButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
   cancelText: {
     color: "#5295B7",
     fontSize: 16,
-    // marginBottom: 20,
+    fontWeight: "600",
   },
 });
