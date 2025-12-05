@@ -1,20 +1,19 @@
 import { cameraStyles } from "../styles/CameraPageStyles";
 
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import {
   View,
   Pressable,
   Alert,
   ActivityIndicator,
-  Text
+  Text,
+  Image
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { CameraView, useCameraPermissions } from "expo-camera";
-import { Image } from "react-native";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
-import Entypo from "@expo/vector-icons/Entypo";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
@@ -27,24 +26,16 @@ const CameraPage = ({ }) => {
   const userId = user?.id;
 
   const navigation = useNavigation();
-  const [type, setType] = useState("back");
-  const [hasPermission, setHasPermission] = useState(null);
+  const [facing, setFacing] = useState("back");
+  const [permission, requestPermission] = useCameraPermissions();
   const [photoData, setPhotoData] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const cameraRef = useRef(null);
 
-  // Request permissions on mount
-  React.useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
-
-  const processImage = async (imageUri) => {
+  const processImage = async (photoUri) => {
     setIsProcessing(true);
     try {
-      const result = await recipeService.analyzeImage(imageUri);
+      const result = await recipeService.analyseImage(photoUri);
 
       if (
         result.segmentation_results &&
@@ -60,13 +51,13 @@ const CameraPage = ({ }) => {
           {
             text: "Cancel",
             style: "cancel",
-            onPress: () => setPhotoUri(null),
+            onPress: () => setPhotoData(null),
           },
           {
             text: "Add to Inventory",
             onPress: async () => {
               await addItemsToInventory(detectedItems);
-              setPhotoUri(null);
+              setPhotoData(null);
               navigation.goBack();
             },
           },
@@ -75,7 +66,7 @@ const CameraPage = ({ }) => {
         Alert.alert(
           "No Items Detected",
           "Could not identify any food items in the image. Try taking a clearer photo.",
-          [{ text: "OK", onPress: () => setPhotoUri(null) }],
+          [{ text: "OK", onPress: () => setPhotoData(null) }],
         );
       }
     } catch (error) {
@@ -83,7 +74,7 @@ const CameraPage = ({ }) => {
       Alert.alert(
         "Processing Error",
         "Failed to analyze the image. Please try again.",
-        [{ text: "OK", onPress: () => setPhotoUri(null) }],
+        [{ text: "OK", onPress: () => setPhotoData(null) }],
       );
     } finally {
       setIsProcessing(false);
@@ -102,11 +93,11 @@ const CameraPage = ({ }) => {
     }
   };
 
-  if (hasPermission === null) {
+  if (!permission) {
     return <View style={cameraStyles.container} />;
   }
 
-  if (hasPermission === false) {
+  if (!permission.granted) {
     return (
       <View style={cameraStyles.permissionContainer}>
         <View style={cameraStyles.permissionContent}>
@@ -119,10 +110,7 @@ const CameraPage = ({ }) => {
           </Text>
           <Pressable
             style={cameraStyles.permissionButton}
-            onPress={async () => {
-              const { status } = await Camera.requestCameraPermissionsAsync();
-              setHasPermission(status === "granted");
-            }}
+            onPress={requestPermission}
           >
             <Text style={cameraStyles.permissionButtonText}>
               Grant Permission
@@ -140,21 +128,18 @@ const CameraPage = ({ }) => {
   }
 
   const toggleCameraType = () => {
-    setType((current) => (current === "back" ? "front" : "back"));
+    setFacing((current) => (current === "back" ? "front" : "back"));
   };
 
   const takePicture = async () => {
     if (cameraRef.current) {
       try {
-        const options = {
+        const photo = await cameraRef.current.takePictureAsync({
           quality: 0.8,
           base64: false,
-          skipProcessing: true,
-        };
-
-        const photo = await cameraRef.current.takePictureAsync(options);
+        });
         console.log("Photo taken:", photo.uri);
-        setPhotoUri(photo.uri);
+        setPhotoData(photo);
       } catch (error) {
         console.error("Error taking picture:", error);
         Alert.alert(
@@ -223,11 +208,10 @@ const CameraPage = ({ }) => {
   const renderCamera = () => {
     return (
       <View style={cameraStyles.container}>
-        <Camera
+        <CameraView
           style={cameraStyles.camera}
-          type={type}
+          facing={facing}
           ref={cameraRef}
-          ratio="16:9"
         >
           <View style={cameraStyles.cameraOverlay}>
             {/* Top Bar */}
@@ -299,7 +283,7 @@ const CameraPage = ({ }) => {
               </View>
             </View>
           </View>
-        </Camera>
+        </CameraView>
       </View>
     );
   };

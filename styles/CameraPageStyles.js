@@ -67,7 +67,7 @@ export const cameraStyles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 10,
+    paddingTop: 50,
     paddingBottom: 20,
     backgroundColor: "rgba(0,0,0,0.3)",
   },

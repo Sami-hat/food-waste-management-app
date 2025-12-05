@@ -112,7 +112,20 @@ const ScannerPage = ({ }) => {
         <Text style={scannerStyles.message}>
           We need camera permission to scan barcodes
         </Text>
-        <Pressable onPress={requestPermission} title="Grant Permission" />
+        <Pressable
+          onPress={requestPermission}
+          style={{
+            backgroundColor: '#52B788',
+            padding: 15,
+            borderRadius: 25,
+            marginTop: 20,
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
+            Grant Permission
+          </Text>
+        </Pressable>
       </View>
     );
   }
@@ -190,10 +203,18 @@ const ScannerPage = ({ }) => {
       {scanned && !processing && (
         <View style={scannerStyles.scannedContainer}>
           <Pressable
-            title="Tap to Scan Again"
             onPress={() => setScanned(false)}
-            color="#52B788"
-          />
+            style={{
+              backgroundColor: '#52B788',
+              padding: 15,
+              borderRadius: 25,
+              alignItems: 'center',
+            }}
+          >
+            <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
+              Tap to Scan Again
+            </Text>
+          </Pressable>
         </View>
       )}
 

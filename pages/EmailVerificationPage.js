@@ -1,11 +1,13 @@
-// screens/EmailVerificationScreen.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Pressable, Alert } from 'react-native';
+import { View, Text, TextInput, Pressable, Alert, ActivityIndicator } from 'react-native';
+import { authService } from '../services/apiService';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function EmailVerificationScreen({ route, navigation }) {
   const [verificationCode, setVerificationCode] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
-  
+  const { refreshUserProfile } = useAuth();
+
   // Get token from deep link if available
   const tokenFromLink = route.params?.token;
 
@@ -19,22 +21,21 @@ export default function EmailVerificationScreen({ route, navigation }) {
   const verifyEmail = async (token) => {
     setIsVerifying(true);
     try {
-      const response = await fetch('https://your-api.vercel.app/api/verify-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token: token || verificationCode }),
-      });
+      await authService.verifyEmail(token || verificationCode);
 
-      if (response.ok) {
-        Alert.alert('Success', 'Email verified successfully!');
-        navigation.navigate('Home');
-      } else {
-        Alert.alert('Error', 'Invalid or expired verification code');
+      // Refresh user profile to update email verification status
+      if (refreshUserProfile) {
+        await refreshUserProfile();
       }
+
+      Alert.alert('Success', 'Email verified successfully!', [
+        {
+          text: 'OK',
+          onPress: () => navigation.navigate('Home')
+        }
+      ]);
     } catch (error) {
-      Alert.alert('Error', 'Something went wrong. Please try again.');
+      Alert.alert('Error', error.message || 'Invalid or expired verification code');
     } finally {
       setIsVerifying(false);
     }
@@ -44,7 +45,8 @@ export default function EmailVerificationScreen({ route, navigation }) {
   if (tokenFromLink && isVerifying) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Verifying your email...</Text>
+        <ActivityIndicator size="large" color="#52B788" />
+        <Text style={{ marginTop: 20, fontSize: 16 }}>Verifying your email...</Text>
       </View>
     );
   }
@@ -69,10 +71,23 @@ export default function EmailVerificationScreen({ route, navigation }) {
         }}
       />
       <Pressable
-        title="Verify"
         onPress={() => verifyEmail(verificationCode)}
         disabled={isVerifying || !verificationCode}
-      />
+        style={{
+          backgroundColor: isVerifying || !verificationCode ? '#ccc' : '#52B788',
+          padding: 15,
+          borderRadius: 25,
+          alignItems: 'center',
+        }}
+      >
+        {isVerifying ? (
+          <ActivityIndicator size="small" color="white" />
+        ) : (
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
+            Verify Email
+          </Text>
+        )}
+      </Pressable>
     </View>
   );
 }

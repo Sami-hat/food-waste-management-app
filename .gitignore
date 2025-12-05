@@ -79,3 +79,6 @@ config/api-keys.js
 **/secrets.*
 **/config/production.*
 **/*-secret.*
+
+# Backend working
+/backend

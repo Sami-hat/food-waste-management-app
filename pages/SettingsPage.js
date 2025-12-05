@@ -65,8 +65,8 @@ const SettingsPage = ({ setIndex }) => {
 
         {user && (
           <View style={settingsStyles.userInfoContainer}>
-            {/* <Text style={settingsStyles.emailLabel}>Account Email</Text> */}
-            {/* <Text style={settingsStyles.emailText}>{user.email}</Text> */}
+            <Text style={settingsStyles.emailLabel}>Account Email</Text> 
+            <Text style={settingsStyles.emailText}>{user.email}</Text>
             {!isEmailVerified && (
               <>
                 <Text style={settingsStyles.emailVerificationText}>
