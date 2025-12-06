@@ -213,10 +213,10 @@ export const recipeService = {
     });
   },
 
-  analyseImage: async (imageUri) => {
+  analyseImage: async (imageBase64) => {
     return apiRequest(`${API_BASE_URL}${API_ENDPOINTS.LOGMEAL}`, {
       method: "POST",
-      body: JSON.stringify({ imageUri }),
+      body: JSON.stringify({ imageBase64 }),
     });
   },
 

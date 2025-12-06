@@ -69,35 +69,25 @@ const LoginPage = () => {
         keyboardType="email-address"
         autoCapitalize="none"
         value={email}
-        leftIcon={{
-          type: 'font-awesome',
-          name: 'envelope',
-          color: '#52B788',
-          size: 20,
-        }}
-        leftIconContainerStyle={loginStyles.leftIconContainer}
-        inputContainerStyle={loginStyles.inputContainer}
-        inputStyle={loginStyles.inputText}
+        style={loginStyles.inputText}
         onChangeText={setEmail}
-        errorMessage={error && error.includes('email') ? error : ''}
+        placeholderTextColor="#999"
       />
+      {error && error.includes('email') && (
+        <Text style={loginStyles.errorText}>{error}</Text>
+      )}
 
       <TextInput
         placeholder="Password"
         secureTextEntry
         value={password}
-        leftIcon={{
-          type: 'font-awesome',
-          name: 'lock',
-          color: '#52B788',
-          size: 22,
-        }}
-        leftIconContainerStyle={loginStyles.leftIconContainer}
-        inputContainerStyle={loginStyles.inputContainer}
-        inputStyle={loginStyles.inputText}
+        style={loginStyles.inputText}
         onChangeText={setPassword}
-        errorMessage={error && error.includes('password') ? error : ''}
+        placeholderTextColor="#999"
       />
+      {error && error.includes('password') && (
+        <Text style={loginStyles.errorText}>{error}</Text>
+      )}
 
       <Pressable
         onPress={handleLogin}

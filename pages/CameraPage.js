@@ -32,10 +32,13 @@ const CameraPage = ({ }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const cameraRef = useRef(null);
 
-  const processImage = async (photoUri) => {
+  const processImage = async (photo) => {
     setIsProcessing(true);
     try {
-      const result = await recipeService.analyseImage(photoUri);
+      if (!photo.base64) {
+        throw new Error('No base64 image data available');
+      }
+      const result = await recipeService.analyseImage(photo.base64);
 
       if (
         result.segmentation_results &&
@@ -136,7 +139,7 @@ const CameraPage = ({ }) => {
       try {
         const photo = await cameraRef.current.takePictureAsync({
           quality: 0.8,
-          base64: false,
+          base64: true, // Enable base64 encoding
         });
         console.log("Photo taken:", photo.uri);
         setPhotoData(photo);
