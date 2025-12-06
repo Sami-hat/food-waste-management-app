@@ -26,8 +26,7 @@ const ScannerPage = ({ }) => {
   const [barcode, setBarcode] = useState("");
   const [processing, setProcessing] = useState(false);
 
-  const handleBarcodeScanned = async ({ type, data }) => {
-    console.log("Barcode scanned:", { type, data });
+  const handleBarcodeScanned = async ({ data }) => {
     setScanned(true);
     setBarcode(data);
     setProcessing(true);
@@ -35,7 +34,6 @@ const ScannerPage = ({ }) => {
     try {
       // Fetch product information
       const result = await barcodeService.search(data);
-      console.log("Barcode service result:", result);
 
       if (result.found && result.product) {
         const name = result.product.product_name || "Unknown Product";

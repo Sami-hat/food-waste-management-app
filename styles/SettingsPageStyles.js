@@ -116,4 +116,29 @@ export const settingsStyles = StyleSheet.create({
     color: "white",
     letterSpacing: 0.5,
   },
+  legalSection: {
+    width: "100%",
+    marginTop: 30,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: "#E0E0E0",
+  },
+  legalTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  legalLink: {
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    marginBottom: 10,
+    alignItems: "center",
+  },
+  legalLinkText: {
+    fontSize: 15,
+    color: "#5295B7",
+    textDecorationLine: "underline",
+  },
 });

@@ -81,8 +81,8 @@ export default {
         "expo-build-properties",
         {
           android: {
-            usesCleartextTraffic: true,
-            
+            usesCleartextTraffic: process.env.NODE_ENV === 'development',
+
           },
           ios: {
             flipper: true,

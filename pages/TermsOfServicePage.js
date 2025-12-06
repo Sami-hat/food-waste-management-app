@@ -1,0 +1,274 @@
+import React from 'react';
+import { View, Text, ScrollView, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { legalStyles } from '../styles/LegalPageStyles';
+
+const TermsOfServicePage = () => {
+  const navigation = useNavigation();
+
+  return (
+    <View style={legalStyles.container}>
+      <ScrollView style={legalStyles.scrollView}>
+        <View style={legalStyles.content}>
+          <Text style={legalStyles.title}>Terms of Service</Text>
+          <Text style={legalStyles.lastUpdated}>
+            Last Updated: December 6, 2025
+          </Text>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>1. Acceptance of Terms</Text>
+            <Text style={legalStyles.paragraph}>
+              By accessing or using the Shelfie mobile application, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the app.
+            </Text>
+          </View>
+
+          <View style={legalStyles.disclaimer}>
+            <Text style={legalStyles.disclaimerText}>
+              IMPORTANT FOOD SAFETY NOTICE: Shelfie is a convenience tool for tracking food inventory. Expiry dates and food safety information are estimates only. Always inspect food before consumption and follow proper food safety guidelines. Shelfie is not responsible for foodborne illness or food safety incidents.
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>2. Description of Service</Text>
+            <Text style={legalStyles.paragraph}>
+              Shelfie is a food inventory management application that helps you:
+            </Text>
+            <Text style={legalStyles.bulletPoint}>• Track food items and expiry dates</Text>
+            <Text style={legalStyles.bulletPoint}>• Scan barcodes for product information</Text>
+            <Text style={legalStyles.bulletPoint}>• Recognize food from photos</Text>
+            <Text style={legalStyles.bulletPoint}>• Generate recipe suggestions</Text>
+            <Text style={legalStyles.bulletPoint}>• Manage dietary preferences</Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>3. User Accounts</Text>
+
+            <View style={legalStyles.subSection}>
+              <Text style={legalStyles.subSectionTitle}>3.1 Account Creation</Text>
+              <Text style={legalStyles.paragraph}>
+                You must create an account to use Shelfie. You agree to:
+              </Text>
+              <Text style={legalStyles.bulletPoint}>• Provide accurate and complete information</Text>
+              <Text style={legalStyles.bulletPoint}>• Maintain the security of your password</Text>
+              <Text style={legalStyles.bulletPoint}>• Be at least 13 years of age</Text>
+              <Text style={legalStyles.bulletPoint}>• Notify us immediately of any unauthorized access</Text>
+            </View>
+
+            <View style={legalStyles.subSection}>
+              <Text style={legalStyles.subSectionTitle}>3.2 Account Responsibility</Text>
+              <Text style={legalStyles.paragraph}>
+                You are responsible for all activities that occur under your account. We recommend using a strong, unique password.
+              </Text>
+            </View>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>4. Food Safety Disclaimer</Text>
+
+            <View style={legalStyles.disclaimer}>
+              <Text style={legalStyles.disclaimerText}>
+                CRITICAL DISCLAIMER:{'\n\n'}
+                • Expiry dates are user-entered or estimated from product databases{'\n'}
+                • Barcode data may be incomplete or inaccurate{'\n'}
+                • Food recognition from photos is not 100% accurate{'\n'}
+                • Always use your judgment when consuming food{'\n'}
+                • When in doubt, throw it out{'\n'}
+                • We are NOT liable for any health consequences from consuming food tracked in this app
+              </Text>
+            </View>
+
+            <Text style={legalStyles.paragraph}>
+              Shelfie provides convenience and organization features only. It is not a substitute for:
+            </Text>
+            <Text style={legalStyles.bulletPoint}>• Professional food safety advice</Text>
+            <Text style={legalStyles.bulletPoint}>• Medical or nutritional guidance</Text>
+            <Text style={legalStyles.bulletPoint}>• Health and safety regulations</Text>
+            <Text style={legalStyles.bulletPoint}>• Common sense food inspection</Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>5. Recipe Disclaimer</Text>
+            <Text style={legalStyles.paragraph}>
+              Recipes are generated by AI (Google Gemini) based on your ingredients. We do not guarantee:
+            </Text>
+            <Text style={legalStyles.bulletPoint}>• Recipe accuracy or quality</Text>
+            <Text style={legalStyles.bulletPoint}>• Nutritional information</Text>
+            <Text style={legalStyles.bulletPoint}>• Allergen safety</Text>
+            <Text style={legalStyles.bulletPoint}>• Dietary restriction compliance</Text>
+            <Text style={legalStyles.paragraph}>
+              Always verify recipes match your dietary needs and restrictions. Cross-check ingredients for allergens before cooking.
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>6. Prohibited Uses</Text>
+            <Text style={legalStyles.paragraph}>You agree NOT to:</Text>
+            <Text style={legalStyles.bulletPoint}>• Use the app for any illegal purpose</Text>
+            <Text style={legalStyles.bulletPoint}>• Attempt to gain unauthorized access to our systems</Text>
+            <Text style={legalStyles.bulletPoint}>• Reverse engineer or decompile the app</Text>
+            <Text style={legalStyles.bulletPoint}>• Upload malicious code or viruses</Text>
+            <Text style={legalStyles.bulletPoint}>• Impersonate others or create fake accounts</Text>
+            <Text style={legalStyles.bulletPoint}>• Scrape or harvest user data</Text>
+            <Text style={legalStyles.bulletPoint}>• Abuse or overload our API services</Text>
+            <Text style={legalStyles.bulletPoint}>• Resell or redistribute the app</Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>7. Intellectual Property</Text>
+            <Text style={legalStyles.paragraph}>
+              Shelfie and its original content, features, and functionality are owned by Shelfie and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.
+            </Text>
+            <Text style={legalStyles.paragraph}>
+              User-generated content (your inventory data, photos) remains your property. By using Shelfie, you grant us a limited license to process this data to provide the service.
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>8. Third-Party Services</Text>
+            <Text style={legalStyles.paragraph}>
+              Shelfie integrates with third-party services (Google OAuth, LogMeal, Gemini AI, OpenFoodFacts, UPCItemDB). These services have their own terms and privacy policies. We are not responsible for the availability, accuracy, or content of third-party services.
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>9. Limitation of Liability</Text>
+
+            <View style={legalStyles.disclaimer}>
+              <Text style={legalStyles.disclaimerText}>
+                TO THE MAXIMUM EXTENT PERMITTED BY LAW:{'\n\n'}
+                Shelfie is provided "AS IS" without warranties of any kind. We are NOT liable for:{'\n\n'}
+                • Foodborne illness or food safety incidents{'\n'}
+                • Allergic reactions from recipes{'\n'}
+                • Data loss or inaccurate information{'\n'}
+                • Service interruptions or downtime{'\n'}
+                • Damages from third-party services{'\n'}
+                • Any indirect, incidental, or consequential damages
+              </Text>
+            </View>
+
+            <Text style={legalStyles.paragraph}>
+              Your use of Shelfie is at your own risk. Our total liability shall not exceed the amount you paid for the service (currently $0 for free users).
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>10. Indemnification</Text>
+            <Text style={legalStyles.paragraph}>
+              You agree to indemnify and hold harmless Shelfie and its affiliates from any claims, damages, losses, liabilities, and expenses arising from:
+            </Text>
+            <Text style={legalStyles.bulletPoint}>• Your use of the app</Text>
+            <Text style={legalStyles.bulletPoint}>• Your violation of these terms</Text>
+            <Text style={legalStyles.bulletPoint}>• Your violation of any third-party rights</Text>
+            <Text style={legalStyles.bulletPoint}>• Food consumption decisions made using the app</Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>11. Account Termination</Text>
+
+            <View style={legalStyles.subSection}>
+              <Text style={legalStyles.subSectionTitle}>11.1 By You</Text>
+              <Text style={legalStyles.paragraph}>
+                You may delete your account at any time from the Settings page. Account deletion is permanent and cannot be undone.
+              </Text>
+            </View>
+
+            <View style={legalStyles.subSection}>
+              <Text style={legalStyles.subSectionTitle}>11.2 By Us</Text>
+              <Text style={legalStyles.paragraph}>
+                We reserve the right to suspend or terminate your account if you:
+              </Text>
+              <Text style={legalStyles.bulletPoint}>• Violate these Terms of Service</Text>
+              <Text style={legalStyles.bulletPoint}>• Engage in fraudulent activity</Text>
+              <Text style={legalStyles.bulletPoint}>• Abuse the service or other users</Text>
+              <Text style={legalStyles.bulletPoint}>• Fail to comply with applicable laws</Text>
+            </View>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>12. Service Availability</Text>
+            <Text style={legalStyles.paragraph}>
+              We strive to provide reliable service but do not guarantee:
+            </Text>
+            <Text style={legalStyles.bulletPoint}>• Uninterrupted or error-free operation</Text>
+            <Text style={legalStyles.bulletPoint}>• Availability of third-party APIs</Text>
+            <Text style={legalStyles.bulletPoint}>• Data backup or recovery</Text>
+            <Text style={legalStyles.bulletPoint}>• Compatibility with all devices</Text>
+            <Text style={legalStyles.paragraph}>
+              We reserve the right to modify, suspend, or discontinue the service at any time without notice.
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>13. Data Backup</Text>
+            <Text style={legalStyles.paragraph}>
+              While we implement security measures, YOU are responsible for backing up your important data. We recommend periodically exporting or screenshot your inventory if it's critical.
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>14. Changes to Terms</Text>
+            <Text style={legalStyles.paragraph}>
+              We may modify these Terms of Service at any time. Material changes will be communicated via in-app notifications or email. Continued use of Shelfie after changes constitutes acceptance of the new terms.
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>15. Governing Law</Text>
+            <Text style={legalStyles.paragraph}>
+              These Terms shall be governed by and construed in accordance with applicable local laws, without regard to conflict of law provisions.
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>16. Dispute Resolution</Text>
+            <Text style={legalStyles.paragraph}>
+              Any disputes arising from these Terms or use of Shelfie shall be resolved through binding arbitration, except where prohibited by law. You waive your right to participate in class action lawsuits.
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>17. Severability</Text>
+            <Text style={legalStyles.paragraph}>
+              If any provision of these Terms is found to be unenforceable, the remaining provisions will continue in full force and effect.
+            </Text>
+          </View>
+
+          <View style={legalStyles.section}>
+            <Text style={legalStyles.sectionTitle}>18. Entire Agreement</Text>
+            <Text style={legalStyles.paragraph}>
+              These Terms, together with our Privacy Policy, constitute the entire agreement between you and Shelfie regarding use of the service.
+            </Text>
+          </View>
+
+          <View style={legalStyles.contactSection}>
+            <Text style={legalStyles.sectionTitle}>Contact Information</Text>
+            <Text style={legalStyles.contactText}>
+              For questions about these Terms of Service:
+            </Text>
+            <Text style={legalStyles.contactText}>
+              {'\n'}Email: legal@shelfieapp.com
+            </Text>
+            <Text style={legalStyles.contactText}>
+              Support: support@shelfieapp.com
+            </Text>
+          </View>
+
+          <View style={legalStyles.disclaimer}>
+            <Text style={legalStyles.disclaimerText}>
+              By continuing to use Shelfie, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy.
+            </Text>
+          </View>
+
+          <Pressable
+            style={legalStyles.backButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={legalStyles.backButtonText}>Back</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
+    </View>
+  );
+};
+
+export default TermsOfServicePage;

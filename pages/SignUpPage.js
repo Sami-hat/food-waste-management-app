@@ -24,9 +24,7 @@ const SignUpPage = () => {
   };
 
   const handleSignup = async () => {
-    console.log("signing up with:", email);
     if (!email.trim()) {
-      console.log("Email validation failed: empty");
       setError('Please enter your email');
       return;
     }
@@ -121,6 +119,23 @@ const SignUpPage = () => {
 
       <Text style={signUpStyles.passwordHint}>
         Password must contain at least 8 characters, including uppercase, lowercase, number, and special character
+      </Text>
+
+      <Text style={signUpStyles.legalText}>
+        By signing up, you agree to our{' '}
+        <Text
+          style={signUpStyles.legalLink}
+          onPress={() => navigation.navigate('PrivacyPolicy')}
+        >
+          Privacy Policy
+        </Text>
+        {' '}and{' '}
+        <Text
+          style={signUpStyles.legalLink}
+          onPress={() => navigation.navigate('TermsOfService')}
+        >
+          Terms of Service
+        </Text>
       </Text>
 
       <Pressable

@@ -1,4 +1,4 @@
-# ShopTracker - Grocery Management App
+# Shelfie - Grocery Management App
 
 A comprehensive food waste management solution that helps you track groceries, discover recipes, and reduce food waste through smart inventory management
 
@@ -95,7 +95,7 @@ npx concurrently --raw "npm run backend" "npx expo start"
 
 ### Getting Started
 
-1. **Create Account**: Sign up with email and password
+1. **Create Account**: Sign up with email and password or Google
 2. **Set Preferences**: Configure dietary restrictions and preferences
 3. **Add Groceries**: Use barcode scanning, photo capture, or manual entry
 

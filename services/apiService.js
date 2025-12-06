@@ -317,20 +317,12 @@ export const barcodeService = {
 
   // Main search function
   search: async (barcode) => {
-    console.log(`Searching for barcode: ${barcode}...`);
-    const startTime = Date.now();
-
     try {
       // Race APIs
       const result = await Promise.any([
         barcodeService.searchOpenFoodFacts(barcode),
         barcodeService.searchUPCItemDB(barcode),
       ]);
-
-      const searchTime = Date.now() - startTime;
-      console.log(
-        `Found product from ${result.source} in ${searchTime}ms`
-      );
 
       return result;
     } catch (error) {

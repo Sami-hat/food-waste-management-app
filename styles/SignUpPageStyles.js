@@ -131,4 +131,17 @@ export const signUpStyles = StyleSheet.create({
     fontSize: 12,
     textAlign: "center",
   },
+  legalText: {
+    fontSize: 12,
+    color: "#666",
+    textAlign: "center",
+    marginTop: 20,
+    marginBottom: 10,
+    paddingHorizontal: 20,
+    lineHeight: 18,
+  },
+  legalLink: {
+    color: "#5295B7",
+    textDecorationLine: "underline",
+  },
 });

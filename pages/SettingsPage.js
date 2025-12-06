@@ -1,6 +1,6 @@
 import { settingsStyles } from '../styles/SettingsPageStyles';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Alert, Pressable, Text, ActivityIndicator } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { authService } from '../services/apiService';
@@ -101,6 +101,36 @@ const SettingsPage = ({ setIndex }) => {
         >
           <Text style={settingsStyles.buttonText}>Logout from All Devices</Text>
         </Pressable>
+
+        <View style={settingsStyles.legalSection}>
+          <Text style={settingsStyles.legalTitle}>Legal</Text>
+
+          <Pressable
+            onPress={() => {
+              setIndex(0);
+              setTimeout(() => {
+                // This will navigate in ProfileStack after tab switch
+                global.navigateToPrivacyPolicy?.();
+              }, 150);
+            }}
+            style={settingsStyles.legalLink}
+          >
+            <Text style={settingsStyles.legalLinkText}>Privacy Policy</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => {
+              setIndex(0);
+              setTimeout(() => {
+                // This will navigate in ProfileStack after tab switch
+                global.navigateToTermsOfService?.();
+              }, 150);
+            }}
+            style={settingsStyles.legalLink}
+          >
+            <Text style={settingsStyles.legalLinkText}>Terms of Service</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );

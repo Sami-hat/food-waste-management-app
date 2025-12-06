@@ -15,6 +15,8 @@ import PreferencesPage from "../pages/PreferencesPage";
 import RecipePage from "../pages/RecipePage";
 import EntriesPage from "../pages/EntriesPage";
 import SettingsPage from "../pages/SettingsPage";
+import PrivacyPolicyPage from "../pages/PrivacyPolicyPage";
+import TermsOfServicePage from "../pages/TermsOfServicePage";
 
 const Stack = createStackNavigator();
 
@@ -23,7 +25,16 @@ const ProfileStack = ({ setIndex, recipe, setRecipe }) => {
   const userId = user?.id;
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      screenListeners={({ navigation }) => ({
+        state: () => {
+          // Expose navigation functions globally for cross-tab navigation
+          global.navigateToPrivacyPolicy = () => navigation.navigate('PrivacyPolicy');
+          global.navigateToTermsOfService = () => navigation.navigate('TermsOfService');
+        },
+      })}
+    >
       <Stack.Screen name="Landing">
         {(props) => (
           <LandingPage
@@ -36,10 +47,10 @@ const ProfileStack = ({ setIndex, recipe, setRecipe }) => {
       <Stack.Screen name="Login" component={LoginPage} />
       <Stack.Screen name="Home">
         {(props) => (
-          <HomePage 
-            {...props} 
-            userId={userId} 
-            setRecipe={setRecipe} 
+          <HomePage
+            {...props}
+            userId={userId}
+            setRecipe={setRecipe}
           />
         )}
       </Stack.Screen>
@@ -55,6 +66,8 @@ const ProfileStack = ({ setIndex, recipe, setRecipe }) => {
       <Stack.Screen name="Recipe">
         {(props) => <RecipePage {...props} recipe={recipe} />}
       </Stack.Screen>
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyPage} />
+      <Stack.Screen name="TermsOfService" component={TermsOfServicePage} />
     </Stack.Navigator>
   );
 };
@@ -70,7 +83,7 @@ export const Tabs = () => {
   const [index, setIndex] = useState(0);
   const [recipe, setRecipe] = useState(null);
   const [item, setItem] = useState(null);
-  
+
   const { user, isAuthenticated, loading } = useAuth();
   const userId = user?.id;
 
